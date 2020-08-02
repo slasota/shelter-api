@@ -41,7 +41,7 @@ public class AnimalManager {
         if(count<allPlaces) str = "In shelter is/are "+count+"Animals. There is still place.";
         else if(count == allPlaces) str = "In shelter is/are "+count+"Animals. Shelter is full.";
         else str ="In shelter is/are "+count+". There is too many animals.";
-        str = "{\"status\": { \"text\": \""+str+"\"}}";
+        str = "{\"status\":  \"text\": \""+str+"\"}";
         return str;
     }
 
