@@ -1,5 +1,6 @@
 package pl.buzka.shelterapp.manager;
 
+import com.google.gson.JsonElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -34,14 +35,16 @@ public class AnimalManager {
         animalRepo.deleteById(id);
     }
 
+
+
     public String status(){
         long count = animalRepo.count();
         String str;
         int allPlaces = 5;
-        if(count<allPlaces) str = "In shelter is/are "+count+"Animals. There is still place.";
-        else if(count == allPlaces) str = "In shelter is/are "+count+"Animals. Shelter is full.";
+        if(count<allPlaces) str = "In shelter left "+ (allPlaces - count)+ "places.";
+        else if(count == allPlaces) str = "In shelter left "+ (allPlaces - count)+ "places. Shelter is full.";
         else str ="In shelter is/are "+count+". There is too many animals.";
-        str = "{\"status\":  \"text\": \""+str+"\"}";
+        //str = "{\"status\":  \"text\": \""+str+"\"}";
         return str;
     }
 

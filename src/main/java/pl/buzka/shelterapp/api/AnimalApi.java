@@ -1,7 +1,7 @@
 package pl.buzka.shelterapp.api;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.fasterxml.jackson.annotation.JsonRawValue;
+import com.fasterxml.jackson.annotation.JsonValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.buzka.shelterapp.dao.entity.Animal;
@@ -27,9 +27,20 @@ public class AnimalApi {
         return animals.findById(index);
     }
     @GetMapping("/status")
-    public String status()
+    public JsonObject status()
     {
-        return animals.status();
+        return new JsonObject("{\"text\":\""+animals.status()+"\"}");
+    }
+    private static class JsonObject {
+        private String rawJsonValue;
+        JsonObject(String rawJsonValue) {
+            this.rawJsonValue = rawJsonValue;
+        }
+        @JsonValue
+        @JsonRawValue
+        public String getRawJsonValue() {
+            return rawJsonValue;
+        }
     }
     @PostMapping()
     public Animal addAnimal(@RequestBody Animal animal){
